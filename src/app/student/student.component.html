@@ -1,0 +1,185 @@
+<mat-toolbar color="primary">
+  <mat-icon>menu</mat-icon>
+  <span class="myapp"></span>
+  <span>Vitasoft's Application</span>
+  <span class="example-spacer"></span>
+  <div class="logout">
+    <button mat-raised-button color="danger" type="submit" (click)="onLogout()">Logout <mat-icon>power_settings_new</mat-icon></button>
+  </div>
+
+</mat-toolbar>
+<h1 style="color:coral; text-align: center;">User Details</h1>
+<form [formGroup]="userdetails" class="userdetailsform">
+  <div class="form-group row">
+  <div class="form-group col-md-4">
+  <mat-form-field>
+    <input matInput placeholder="First Name" formControlName="firstName" autocomplete="off">
+    <mat-error *ngIf="userdetails.get('firstName').hasError('required')">
+      First Name is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+  <div class="form-group col-md-4">
+  <mat-form-field>
+    <input matInput placeholder="Last Name" formControlName="lastName" autocomplete="off">
+    <mat-error *ngIf="userdetails.get('lastName').hasError('required')">
+      Last Name is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+  <div class="form-group col-md-4">
+  <mat-form-field>
+    <input matInput placeholder="Middle Name" formControlName="middleName" autocomplete="off">
+    <mat-error *ngIf="userdetails.get('middleName').hasError('required')">
+      Middle Name is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+  </div>
+
+  <div class="form-group row">
+  <div class="form-group col-md-3">
+  <mat-form-field>
+    <textarea matInput placeholder="Address" formControlName="doorNo" autocomplete="off"></textarea>
+    <mat-error *ngIf="userdetails.get('doorNo').hasError('required')">
+      Address is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+
+  <div class="form-group col-md-3">
+    <mat-form-field>
+    <mat-select formControlName="country" placeholder="Select Country">
+      <mat-option *ngFor="let country of address.Countries" [value]="country.CountryName">
+        {{country.CountryName}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="userdetails.get('stateName').hasError('required')">
+      Country Name is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+  <div class="form-group col-md-3">
+  <mat-form-field>
+    <mat-select formControlName="stateName" placeholder="Select State">
+      <mat-option *ngFor="let state of statesFiltered" [value]="state.StateName">
+        {{state.StateName}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="userdetails.get('stateName').hasError('required')">
+      State Name is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+  <div class="form-group col-md-3">
+  <mat-form-field>
+    <input type matInput placeholder="Zipcode" formControlName="zipcode" autocomplete="off">
+    <mat-error *ngIf="userdetails.get('zipcode').hasError('required')">
+      Zipcode is Required!
+    </mat-error>
+    <mat-error *ngIf="userdetails.get('zipcode').hasError('pattern')">
+      Enter Valid Zipcode!
+    </mat-error>
+  </mat-form-field>
+  </div>
+  </div>
+
+  <div class="form-group row">
+  <div class="form-group col-md-3">
+  <mat-form-field>
+    <input type = "tel" matInput placeholder="Phone Number" formControlName="phonenum" autocomplete="off">
+    <mat-error *ngIf="userdetails.get('phonenum').hasError('required')">
+      Phone Number is Required!
+    </mat-error>
+    <mat-error *ngIf="userdetails.get('phonenum').hasError('pattern')">
+      Enter Valid Phone Number with CountryCode!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+  <div class="form-group col-md-3">
+  <mat-form-field class="row">
+    <input type = "email" matInput placeholder="Email" formControlName="emailid" autocomplete="off">
+    <mat-error *ngIf="userdetails.get('emailid').hasError('required')">
+      EmailId is Required!
+    </mat-error>
+    <mat-error *ngIf="userdetails.get('emailid').hasError('pattern')">
+      Enter Valid Emailid!
+    </mat-error>
+  </mat-form-field>
+  </div>
+  </div>
+
+  <div class="form-group row">
+  <div class="form-group col-md-3">
+  <mat-form-field class="row">
+    <input type = "number" matInput placeholder="Height(Ft/inches)" formControlName="height">
+    <mat-error *ngIf="userdetails.get('height').hasError('required')">
+      Height is Required!
+    </mat-error>
+  </mat-form-field>
+  </div>
+
+  <div class="form-group col-md-3">
+  <mat-form-field>
+    <input type = "number" matInput placeholder="Weight(kgs)" formControlName="weight">
+    <mat-error *ngIf="userdetails.get('weight').hasError('required')">
+      Weight is Required!
+    </mat-error>
+    <mat-error *ngIf="userdetails.get('weight').hasError('pattern')">
+      Enter Valid Weight in kgs
+    </mat-error>
+  </mat-form-field>
+  </div>
+  </div>
+</form>
+
+<div align="end">
+<button class="savebutton" mat-raised-button color="accent" type="submit" [disabled]="!userdetails.valid" (click)="onSaved()">Save</button>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+<!-- Regno Column -->
+<ng-container matColumnDef="regno">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header style="color: brown;"> FirstName. </th>
+  <td mat-cell *matCellDef="let student"> {{student.FirstName}} </td>
+</ng-container>
+
+<!-- Name Column -->
+<ng-container matColumnDef="name">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header style="color: brown;"> LastName </th>
+  <td mat-cell *matCellDef="let student"> {{student.LastName}} </td>
+</ng-container>
+
+<!-- marks Column -->
+<ng-container matColumnDef="marks">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header style="color: brown;"> EmailID </th>
+  <td mat-cell *matCellDef="let student"> {{student.EmailId}} </td>
+</ng-container>
+
+<!-- Branch Column -->
+<ng-container matColumnDef="branch">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header style="color: brown;"> ID (MongoDB) </th>
+  <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+</ng-container>
+
+<ng-container matColumnDef="action">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header style="color: brown;"> Action </th>
+  <td mat-cell (click)="onDelete(student.id)" *matCellDef="let student">
+  <span class="glyphicon glyphicon-trash">{{student.action}} </span></td>
+</ng-container>
+
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[1, 5, 10]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
+
+

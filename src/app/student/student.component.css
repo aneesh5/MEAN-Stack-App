@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+}
+
+.userdetailsform {
+  text-align: center;
+  font-weight: 100px;
+}
+
+.savebutton {
+  width: 100px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.border {
+  border-style: solid;
+  border-width: 8px;
+  border-color: green;
+  padding: 50px;
+  font-weight: 100px;
+}
+.myapp {
+  flex-basis: 20px;
+}
+
+.example-spacer {
+  flex-basis: 940px;
+}
+
+.logout {
+  flex-basis: 10px;
+}
+
